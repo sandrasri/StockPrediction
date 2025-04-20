@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5001"  # Expose backend to port 5001
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0  # Ensure Flask is accessible from any network
+      - FLASK_RUN_PORT=5001  # Flask should listen on port 5001
+
+  frontend:
+    build: ./stock-predictor-frontend
+    ports:
+      - "3000:3000"  # Expose frontend to port 3000
+    depends_on:
+      - backend  # Ensure frontend waits for the backend to start
